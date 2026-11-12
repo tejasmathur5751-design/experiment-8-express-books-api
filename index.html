@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Collection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Book Collection</h1>
+        <p>RESTful API for Managing Books with Node.js and Express.js</p>
+    </header>
+
+    <main class="container">
+        <section class="form-section">
+            <h2 id="formTitle">Add a Book</h2>
+            <form id="bookForm">
+                <input type="hidden" id="bookId">
+                <div class="input-group">
+                    <label for="title">Book Title:</label>
+                    <input type="text" id="title" placeholder="Enter book title" required>
+                </div>
+                <div class="input-group">
+                    <label for="author">Author:</label>
+                    <input type="text" id="author" placeholder="Enter author name" required>
+                </div>
+                <div class="input-group">
+                    <label for="year">Year:</label>
+                    <input type="number" id="year" placeholder="Enter publication year">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn" id="submitBtn">Add Book</button>
+                    <button type="button" class="btn btn-cancel" id="cancelBtn" style="display: none;">Cancel</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="collection-section">
+            <h2>Current Book Collection</h2>
+            <div id="bookList" class="book-list"></div>
+        </section>
+
+        <section class="api-info">
+            <h2>RESTful API Endpoints</h2>
+            <ul>
+                <li><strong>GET /books</strong> - Fetch all books in the collection</li>
+                <li><strong>GET /books/:id</strong> - Fetch a specific book by ID</li>
+                <li><strong>POST /books</strong> - Add a new book to the collection</li>
+                <li><strong>PUT /books/:id</strong> - Update an existing book by ID</li>
+                <li><strong>DELETE /books/:id</strong> - Delete a book by ID</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Book Collection REST API</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
