@@ -1,25 +1,21 @@
-# Experiment 8: Books Collection RESTful API
+# Web Design Experiment 8: Central Library Book REST API
 
-A web application and RESTful API built with Node.js and Express.js for managing a book collection with full CRUD operations.
+A full-stack RESTful API and interactive client application built with Node.js and Express.js for managing a college departmental book collection with CRUD operations.
 
 ## Features
-- Interactive Book Collection interface (`index.html`) to view, add, edit, and delete books
-- RESTful API endpoints for managing the book collection
+- **Semantic Project Layout**: Responsive top navigation bar, header banner, quick stats bar, department filters, and footer.
+- **RESTful Endpoints Supported**:
+  - `GET /books`: Retrieve full collection of library books
+  - `GET /books/:id`: Fetch specific book record by numeric ID
+  - `POST /books`: Register a new book with JSON request body (`title`, `author`, `category`, `year`)
+  - `PUT /books/:id`: Update book details by ID
+  - `DELETE /books/:id`: Remove a book from the catalog
+- **Interactive REST API Console**: In-browser test suite for testing `GET`, `POST`, and `DELETE` requests with live formatted JSON responses.
+- **Client Catalog**: Real-time search, department filtering, and persistent storage via `localStorage`.
 
-## Endpoints
-- `GET /books` - Retrieve all books in the collection
-- `GET /books/:id` - Retrieve a single book by ID
-- `POST /books` - Add a new book (JSON body: `title`, `author`, `year`)
-- `PUT /books/:id` - Update a book by ID (JSON body: `title`, `author`, `year`)
-- `DELETE /books/:id` - Delete a book by ID
-
-## How to Run
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-2. Start the Express server:
-   ```bash
-   npm start
-   ```
-3. Open `http://localhost:3000` in your web browser. You can also view `index.html` directly.
+## Files
+- `index.html` - Complete library portal layout, documentation table, and interactive API console
+- `style.css` - Clean student-style CSS with HTTP method badges and code console
+- `script.js` - Client-side state manager and REST API simulation runner
+- `server.js` - Node.js Express.js backend server implementing all RESTful routes
+- `package.json` - Node.js project configuration and dependencies

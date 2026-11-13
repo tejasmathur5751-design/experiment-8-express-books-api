@@ -1,62 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Collection</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Central Library Book REST API | Web Design Experiment 8</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Book Collection</h1>
-        <p>RESTful API for Managing Books with Node.js and Express.js</p>
-    </header>
 
-    <main class="container">
-        <section class="form-section">
-            <h2 id="formTitle">Add a Book</h2>
-            <form id="bookForm">
-                <input type="hidden" id="bookId">
-                <div class="input-group">
-                    <label for="title">Book Title:</label>
-                    <input type="text" id="title" placeholder="Enter book title" required>
-                </div>
-                <div class="input-group">
-                    <label for="author">Author:</label>
-                    <input type="text" id="author" placeholder="Enter author name" required>
-                </div>
-                <div class="input-group">
-                    <label for="year">Year:</label>
-                    <input type="number" id="year" placeholder="Enter publication year">
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn" id="submitBtn">Add Book</button>
-                    <button type="button" class="btn btn-cancel" id="cancelBtn" style="display: none;">Cancel</button>
-                </div>
-            </form>
-        </section>
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">Library System &bull; Exp 8</div>
+      <nav class="nav-links">
+        <a href="#catalog-section">Book Catalog</a>
+        <a href="#form-section">Add Book</a>
+        <a href="#endpoints-section">REST Endpoints</a>
+        <a href="#api-tester">API Console</a>
+      </nav>
+    </div>
+  </header>
 
-        <section class="collection-section">
-            <h2>Current Book Collection</h2>
-            <div id="bookList" class="book-list"></div>
-        </section>
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <div class="banner-content">
+      <h1>Central Library Book Collection REST API</h1>
+      <p>Full-stack CRUD system built with Node.js, Express.js REST API routes, and client-side management</p>
+    </div>
+  </section>
 
-        <section class="api-info">
-            <h2>RESTful API Endpoints</h2>
-            <ul>
-                <li><strong>GET /books</strong> - Fetch all books in the collection</li>
-                <li><strong>GET /books/:id</strong> - Fetch a specific book by ID</li>
-                <li><strong>POST /books</strong> - Add a new book to the collection</li>
-                <li><strong>PUT /books/:id</strong> - Update an existing book by ID</li>
-                <li><strong>DELETE /books/:id</strong> - Delete a book by ID</li>
-            </ul>
-        </section>
-    </main>
+  <!-- Quick Stats Bar -->
+  <div class="stats-bar">
+    <div class="stats-container">
+      <div class="stat-card">
+        <span class="stat-num" id="totalBooksCount">5</span>
+        <span class="stat-label">Catalog Books</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">4</span>
+        <span class="stat-label">Departments</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num text-success">200 OK</span>
+        <span class="stat-label">REST API Status</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">JSON</span>
+        <span class="stat-label">Data Format</span>
+      </div>
+    </div>
+  </div>
 
-    <footer>
-        <p>&copy; 2026 Book Collection REST API</p>
-    </footer>
+  <!-- Main Container -->
+  <main class="main-layout" id="catalog-section">
 
-    <script src="script.js"></script>
+    <!-- Left Column: Add/Edit Form & Express Architecture Card -->
+    <aside class="sidebar-column" id="form-section">
+      <div class="card form-card">
+        <h3 id="formTitle">Add Book to Catalog</h3>
+        <form id="bookForm">
+          <input type="hidden" id="bookId">
+
+          <div class="form-group">
+            <label for="title">Book Title</label>
+            <input type="text" id="title" placeholder="e.g., Introduction to Algorithms" required>
+          </div>
+
+          <div class="form-group">
+            <label for="author">Author(s)</label>
+            <input type="text" id="author" placeholder="e.g., Thomas H. Cormen" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group" style="flex: 1.2;">
+              <label for="category">Department</label>
+              <select id="category">
+                <option value="Computer Science">Computer Science</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Software Engineering">Software Eng</option>
+                <option value="AI & Machine Learning">AI & ML</option>
+              </select>
+            </div>
+            <div class="form-group" style="flex: 0.8;">
+              <label for="year">Year</label>
+              <input type="number" id="year" placeholder="2022" min="1950" max="2026">
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button type="submit" class="btn btn-primary" id="submitBtn">+ Add Book</button>
+            <button type="button" class="btn btn-cancel" id="cancelBtn" style="display: none;">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Express Server Architecture Card -->
+      <div class="card info-card">
+        <h3>Express.js Architecture</h3>
+        <ul class="concept-list">
+          <li><strong>Routing:</strong> <code>app.get()</code>, <code>app.post()</code>, <code>app.put()</code>, <code>app.delete()</code></li>
+          <li><strong>Body Parser:</strong> <code>express.json()</code> for parsing JSON requests</li>
+          <li><strong>Route Params:</strong> <code>req.params.id</code> for identifying book IDs</li>
+          <li><strong>HTTP Status Codes:</strong> <code>200 OK</code>, <code>201 Created</code>, <code>404 Not Found</code></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Right Column: Catalog Listing & Search -->
+    <section class="content-column">
+      <div class="card list-card">
+        <div class="list-header">
+          <h2>Department Library Catalog</h2>
+          <div class="filter-pills" id="deptFilters">
+            <button class="filter-btn active" data-dept="All">All</button>
+            <button class="filter-btn" data-dept="Computer Science">CS</button>
+            <button class="filter-btn" data-dept="Data Science">Data Science</button>
+            <button class="filter-btn" data-dept="Software Engineering">Software Eng</button>
+            <button class="filter-btn" data-dept="AI & Machine Learning">AI/ML</button>
+          </div>
+        </div>
+
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Search books by title, author, or department...">
+        </div>
+
+        <div id="bookList" class="book-grid"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- REST API Documentation & Interactive Console Section -->
+  <section class="api-doc-section" id="endpoints-section">
+    <div class="api-doc-container">
+      <div class="card">
+        <h2>RESTful API Endpoints Specification</h2>
+        <p class="section-desc">Standard HTTP verbs and endpoints implemented in the Express.js server router</p>
+        
+        <div class="table-responsive">
+          <table class="endpoint-table">
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Endpoint Route</th>
+                <th>Description</th>
+                <th>Request Body</th>
+                <th>Response Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="http-badge get">GET</span></td>
+                <td><code>/books</code></td>
+                <td>Retrieve all books in the catalog</td>
+                <td><em>None</em></td>
+                <td><span class="status-code">200 OK</span></td>
+              </tr>
+              <tr>
+                <td><span class="http-badge get">GET</span></td>
+                <td><code>/books/:id</code></td>
+                <td>Fetch a specific book record by its numeric ID</td>
+                <td><em>None</em></td>
+                <td><span class="status-code">200 OK / 404</span></td>
+              </tr>
+              <tr>
+                <td><span class="http-badge post">POST</span></td>
+                <td><code>/books</code></td>
+                <td>Add a new book entry to the library database</td>
+                <td><code>{ title, author, category, year }</code></td>
+                <td><span class="status-code">201 Created</span></td>
+              </tr>
+              <tr>
+                <td><span class="http-badge put">PUT</span></td>
+                <td><code>/books/:id</code></td>
+                <td>Update an existing book's details by ID</td>
+                <td><code>{ title, author, category, year }</code></td>
+                <td><span class="status-code">200 OK / 404</span></td>
+              </tr>
+              <tr>
+                <td><span class="http-badge delete">DELETE</span></td>
+                <td><code>/books/:id</code></td>
+                <td>Remove a book permanently from catalog</td>
+                <td><em>None</em></td>
+                <td><span class="status-code">200 OK / 404</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Interactive API Console -->
+        <div class="api-tester" id="api-tester">
+          <h3>Interactive REST API Console</h3>
+          <p class="console-desc">Test simulated or live Express endpoints and inspect real-time JSON responses:</p>
+          <div class="tester-actions">
+            <button class="test-btn" data-action="getAll">GET /books</button>
+            <button class="test-btn" data-action="getOne">GET /books/1</button>
+            <button class="test-btn" data-action="samplePost">POST Sample Book</button>
+            <button class="test-btn" data-action="sampleDelete">DELETE /books/5</button>
+          </div>
+          <div class="console-output">
+            <div class="output-header">
+              <span id="responseStatusBadge" class="http-badge get">STATUS: 200 OK</span>
+              <span id="responseEndpointLabel">ENDPOINT: GET /books</span>
+            </div>
+            <pre id="jsonOutput">/* Click any button above to test the endpoint response */</pre>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2026 Web Design Lab &bull; Department of Data Science, JSS University &bull; Experiment 8</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
